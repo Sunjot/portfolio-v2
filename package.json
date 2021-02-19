@@ -1,0 +1,37 @@
+{
+  "name": "form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack serve --mode development",
+    "build": "webpack --mode production"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "latest",
+    "@babel/plugin-proposal-class-properties": "latest",
+    "@babel/plugin-proposal-object-rest-spread": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/preset-react": "latest",
+    "babel-loader": "latest",
+    "css-loader": "latest",
+    "node-sass": "latest",
+    "sass-loader": "latest",
+    "style-loader": "latest",
+    "webpack": "latest",
+    "webpack-cli": "latest",
+    "webpack-dev-server": "latest"
+  },
+  "dependencies": {
+    "@babel/polyfill": "latest",
+    "file-loader": "^6.2.0",
+    "npm": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0"
+  }
+}

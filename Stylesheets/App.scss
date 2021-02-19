@@ -1,0 +1,1398 @@
+
+// Imports
+
+@import url('https://fonts.googleapis.com/css?family=Exo+2|Neucha|PT+Sans:700|Francois+One|Montserrat');
+
+// Mixins
+
+@mixin flex($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+@mixin animate($name, $time, $delay, $fill) {
+  animation: $name $time;
+  animation-delay: $delay;
+  animation-fill-mode: $fill;
+}
+
+html, body {
+  width: 100%;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  background-color: #262627;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  @include flex(row, center, flex-start);
+}
+
+.App {
+  @include flex(column, flex-start, center);
+  width: 100%;
+}
+
+// Header component
+
+#header{
+  position: fixed;
+  @include flex(column, flex-start, center);
+  width: 100%;
+  height: 75px;
+  color: white;
+  transition: border-bottom 1s;
+  background-color: #262627;
+  z-index: 12;
+  border-bottom: 1px solid #262627;
+
+  #home-icon {
+    @include animate(fadein, 4s, 0s, forwards);
+    position: absolute;
+    left: 15px;
+    top: 20px;
+    width: 45px;
+    height: auto;
+    border: 1px solid white;
+    padding: 3px;
+    box-sizing: border-box;
+    z-index: 200;
+    cursor: pointer;
+    transition: border 0.5s;
+
+    &:hover {
+      border: 1px solid #d8a347 !important;
+    }
+  }
+
+  #header-link-collect {
+    @include flex(row, center, center);
+    font-family: "Exo 2";
+    font-size: 20px;
+    width: 100%;
+    height: 100%;
+    text-transform: uppercase;
+
+    div {
+      margin: 0 40px 0 40px;
+      opacity: 0;
+      padding: 5px 10px 5px 10px;
+      transition: background-color 0.5s;
+      position: relative;
+
+      .selected {
+        color: #d8a347 !important;
+      }
+
+      .header-link {
+        color: white;
+        text-decoration: none;
+        transition: color 0.5s, transform 0.5s;
+        display: block;
+      }
+
+      #hl1-a:hover, #hl3-a:hover {
+        transform: scale(1.1) rotate(2deg);
+      }
+
+      #hl2-a:hover, #hl4-a:hover {
+        transform: scale(1.1) rotate(-2deg);
+      }
+    }
+
+    #hl1 {
+      @include animate(slideheaders, 1s, 0s, forwards);
+    }
+    #hl2 {
+      @include animate(slideheaders, 1s, 0.1s, forwards);
+    }
+    #hl3 {
+      @include animate(slideheaders, 1s, 0.2s, forwards);
+    }
+    #hl4 {
+      @include animate(slideheaders, 1s, 0.3s, forwards);
+    }
+
+  }
+}
+
+.border-act {
+  border-bottom: 1px solid white !important;
+}
+
+@keyframes slideheaders {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+// Intro component
+
+#intro {
+  @include flex(column, flex-start, center);
+  width: 100%;
+  height: calc(100vh - 75px);
+  background-color: #262627;
+  color: white;
+  z-index: 12;
+  position: relative;
+  top: 75px;
+
+  #intro-desc {
+    @include flex(column, flex-start, flex-start);
+    top: 150px;
+    left: 200px;
+    font-family: "PT Sans";
+    position: absolute;
+    margin-right: 50px;
+
+    #name {
+      font-size: 50px;
+      margin: 0;
+      opacity: 0;
+      @include animate(fadein, 2.5s, 0.25s, forwards);
+
+      svg > g > #jdot {
+        @include animate(bounce, 1s, 0.25s, forwards);
+        animation-iteration-count: infinite;
+        fill: white;
+      }
+    }
+
+    #role {
+      font-size: 50px;
+      margin: 0 0 10px 0;
+      opacity: 0;
+      @include animate(fadein, 2.5s, 0.25s, forwards);
+
+      span {
+        color: #d8a347;
+      }
+    }
+  }
+
+  #social-links {
+    @include flex(row, center, flex-start);
+    @include animate(slidelinks, 2s, 0s, forwards);
+    position: absolute;
+    bottom: 20px;
+    opacity: 0;
+    width: 100%;
+
+    a:hover {
+      svg > #icons > g {
+        fill: #d8a347;
+      }
+    }
+
+    svg {
+      margin: 0 15px 0 0;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+
+      #icons > g {
+        transition: fill 0.4s;
+      }
+    }
+  }
+}
+
+@keyframes slidelinks {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-15px);
+    animation-timing-function: ease-in;
+  }
+  40% {}
+  50% {
+    transform: translateY(-2px);
+    animation-timing-function: ease-out;
+  }
+  55% {
+    transform: translateY(0px);
+    animation-timing-function: ease-in;
+  }
+  65% {
+    transform: translateY(-5px);
+    animation-timing-function: ease-out;
+  }
+  95% {
+    transform: translateY(-15px);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translateY(-15px);
+    animation-timing-function: ease-in;
+  }
+
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeout {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+// Me component
+
+#me-cont {
+  @include flex(column, flex-start, center);
+  background-color: #262627;
+  width: 100%;
+  padding: 40px;
+  min-height: calc(100vh - 75px);
+  top: 75px;
+  position: relative;
+  box-sizing: border-box;
+
+  #me {
+    @include flex(column, flex-start, center);
+    @include animate(fadein, 1.5s, 0s, forwards);
+    opacity: 0;
+
+    .title {
+      @include flex(column, center, center);
+
+      .heading {
+        font-size: 35px;
+        font-family: "Francois One";
+        text-transform: uppercase;
+        margin: 0 0 10px 0;
+        color: white;
+      }
+    }
+
+    .desc {
+      font-size: 20px;
+      margin: 40px 100px 40px 100px;
+      line-height: 1.5;
+      text-align: center;
+      color: #e0e0e0;
+      font-family: "Montserrat";
+    }
+
+    #icons {
+      @include flex(row, center, center);
+      flex-wrap: wrap;
+
+      #icon-cont {
+        @include flex(column, flex-start, center);
+        @include animate(slideup, 2s, 0s, forwards);
+        margin: 0 0 5px 0;
+
+        i {
+          font-size: 3rem;
+          padding: 11px;
+          transition: transform 0.75s;
+          color: white;
+
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+
+        p {
+          @include animate(fadein, 4s, 1s, forwards);
+          font-size: 12px;
+          text-transform: uppercase;
+          font-family: "Exo 2";
+          margin: 0;
+          opacity: 0;
+          transition: opacity 0.5s;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.divider {
+  height: 5px;
+  background-color: #d8a347;
+  border-radius: 1px;
+  opacity: 0;
+}
+
+#act-div {
+  @include animate(dividerExpand, 1s, 0.5s, forwards);
+}
+
+@keyframes slideup {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes dividerExpand {
+  from {
+    width: 0px;
+    opacity: 0;
+  }
+  to {
+    width: 100px;
+    opacity: 1;
+  }
+}
+
+#projects-cont {
+  @include flex(column, flex-start, center);
+  background-color: #262627;
+  width: 100%;
+  min-height: calc(100vh - 75px);
+  padding: 40px 0px 40px 0px;
+  top: 75px;
+  position: relative;
+  box-sizing: border-box;
+
+  #projects {
+    @include flex(column, flex-start, center);
+    @include animate(fadein, 2s, 0s, forwards);
+    opacity: 0;
+    width: 100%;
+
+    .heading {
+      font-size: 35px;
+      font-family: "Francois One";
+      text-transform: uppercase;
+      margin: 0 0 10px 0;
+      color: white;
+    }
+
+    #tv2-cont {
+      margin-top: 100px;
+    }
+
+    .proj-cont {
+      @include flex(row, flex-start, flex-start);
+      width: 100%;
+      margin: 40px 0 0px 0;
+      min-height: 40vw;
+      position: relative;
+
+      .info-cont {
+        @include flex(column, flex-start, flex-start);
+        width: 45%;
+        position: relative;
+        left: 0%;
+        box-sizing: border-box;
+        padding: 0 20px 0 40px;
+
+        .title-cont {
+          @include flex(row, flex-start, center);
+          @include animate(slidetitle, 1s, 0s, forwards);
+
+          .title {
+            font-size: 30px;
+            font-family: "Montserrat";
+            text-transform: uppercase;
+            margin: 0;
+            color: white;
+          }
+
+          a {
+            text-decoration: none;
+
+            &:hover {
+
+              svg > g > g {
+                fill: #c19749;
+              }
+            }
+          }
+
+          svg {
+            cursor: pointer;
+            transition: stroke 0.35s, border-color 0.35s;
+            width: 28px;
+            height: 28px;
+            margin: 0 0 0 5px;
+
+            g > g {
+              fill: white;
+              transition: fill 0.35s;
+            }
+          }
+        }
+
+        .desc {
+          @include animate(slidedesc, 1s, 0s, forwards);
+          font-family: "Montserrat";
+          color: white;
+          font-size: 19px;
+          text-align: center;
+          width: 100%;
+          text-align: left;
+
+          span {
+            color: #d8a347;
+            font-weight: bold;
+          }
+        }
+      }
+      a {
+        @include flex(row, center, flex-start);
+      }
+      img {
+        @include animate(slideimage, 1s, 0s, forwards);
+        width: 80%;
+        position: absolute;
+        left: 50%;
+      }
+    }
+  }
+}
+
+@keyframes slidetitle {
+  from {
+    transform: translate(-5px, -5px);
+  }
+  to {
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes slidedesc {
+  from {
+    transform: translate(5px, 5px);
+  }
+  to {
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes slideimage{
+  from {
+    transform: translateX(10px);
+  }
+  to {
+    transform: translate(0px);
+  }
+}
+
+// Contact component
+
+#contact-cont {
+  @include flex(column, flex-start, center);
+  background-color: #262627;
+  width: 100%;
+  min-height: calc(100vh - 75px);
+  padding: 40px 40px 10px 40px;
+  top: 75px;
+  position: relative;
+  box-sizing: border-box;
+
+  #contact {
+    @include flex(column, flex-start, center);
+    @include animate(fadein, 1s, 0s, forwards);
+    width: 100%;
+    opacity: 0;
+
+    .heading {
+      font-size: 35px;
+      font-family: "Francois One";
+      text-transform: uppercase;
+      margin: 0 0 10px 0;
+      color: white;
+    }
+
+    .desc {
+      font-size: 19px;
+      font-family: "Montserrat";
+      margin: 20px 20px 0 20px;
+      color: white;
+    }
+
+    #contact-form {
+      @include flex(column, flex-start, flex-start);
+      border: 1px solid white;
+      width: 60%;
+      position: relative;
+      margin: 50px 0 0 0;
+
+      .input-field {
+        width: 100%;
+        background-color: #262627;
+        color: white;
+        border: none;
+        padding: 5px;
+        font-size: 17px;
+        font-family: "Montserrat";
+        box-sizing: border-box;
+        transition: background-color 0.5s;
+
+        &:focus {
+          outline: 0;
+          background-color: #313133;
+        }
+
+        &::placeholder {
+          color: #adadad;
+        }
+
+      }
+
+      input:-webkit-autofill,
+      textarea:-webkit-autofill,
+      select:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 30px #2c2c2d inset;
+        -webkit-text-fill-color: white !important;
+      }
+
+      #name {
+        height: 50px;
+        border-bottom: 1px solid white;
+      }
+
+      #email {
+        height: 50px;
+        border-bottom: 1px solid white;
+      }
+
+      #message {
+        height: 150px;
+        resize: none;
+      }
+
+      #form-button {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin: 10px 0 0 0;
+        padding: 8px 15px 8px 15px;
+        font-family: "Montserrat";
+        font-size: 15px;
+        background-color: transparent;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.5s;
+        border: 1px solid white;
+
+        &:hover {
+          background-color: #37373a;
+        }
+      }
+    }
+  }
+}
+
+// 404 comp
+
+#notfound {
+  @include flex(column, flex-start, center);
+  width: 100%;
+  height: calc(100vh - 75px);
+  background-color: #262627;
+  color: white;
+  z-index: 12;
+  position: relative;
+  top: 75px;
+}
+
+// Media queries
+
+@media (min-width: 300px) {
+
+  // header comp
+  #header{
+
+    #home-icon {
+      width: 25px;
+    }
+
+    #header-link-collect {
+      font-size: 12px;
+
+      div {
+        margin: 0 5px 0 5px;
+      }
+    }
+  }
+
+  // intro comp
+  #intro {
+
+    #intro-desc {
+      top: 100px;
+      left: 50px;
+
+      #name {
+        font-size: 27px;
+
+        svg {
+          width: 200px;
+          height: auto;
+        }
+      }
+
+      #role {
+        font-size: 27px;
+      }
+    }
+  }
+
+  // Me comp
+  #me-cont {
+    padding: 20px;
+
+    #me {
+      .title {
+
+        .heading {
+          font-size: 20px;
+        }
+      }
+
+      .desc {
+        font-size: 13px;
+        margin: 40px 10px 40px 10px;
+        max-width: 900px;
+      }
+
+      #icons {
+
+        #icon-cont {
+
+          i {
+            font-size: 1rem;
+          }
+
+          p {
+            font-size: 7px;
+          }
+        }
+      }
+    }
+  }
+
+  // Projects comp
+  #projects-cont {
+    padding: 20px 0px 40px 0px;
+
+    #projects {
+
+      .heading {
+        font-size: 20px;
+      }
+
+      #tv2-cont {
+        margin-top: 40px;
+      }
+
+      .proj-cont {
+        @include flex(column, flex-start, center);
+        width: 100%;
+        margin: 10px 0 40px 0;
+
+        .info-cont {
+          @include flex(column, flex-start, center);
+          width: 85%;
+          left: 0%;
+          padding: 0 10px 20px 10px;
+
+          .title-cont {
+            @include flex(row, flex-start, center);
+
+            .title {
+              font-size: 16px;
+              text-align: center;
+            }
+
+            svg {
+              width: 18px;
+              height: 18px;
+            }
+          }
+
+          .desc {
+            font-size: 13px;
+            text-align: center;
+          }
+        }
+
+        img {
+          width: 95%;
+          position: relative;
+          left: 0%;
+        }
+      }
+    }
+  }
+
+  // Contact comp
+  #contact-cont {
+    padding: 40px 10px 100px 10px;
+
+    #contact {
+
+      .heading {
+        font-size: 20px;
+      }
+
+      .desc {
+        font-size: 15px;
+      }
+
+      #contact-form {
+        width: 90%;
+      }
+    }
+  }
+}
+
+@media (min-width: 525px) {
+
+  // header comp
+  #header {
+
+    #home-icon {
+      width: 45px;
+    }
+
+    #header-link-collect {
+      font-size: 15px;
+
+      div {
+        margin: 0 20px 0 20px;
+      }
+    }
+  }
+
+  // intro comp
+  #intro {
+
+    #intro-desc {
+      top: 125px;
+      left: 75px;
+
+      #name {
+        font-size: 35px;
+
+        svg {
+          width: 250px;
+          height: auto;
+        }
+      }
+
+      #role {
+        font-size: 35px;
+      }
+    }
+  }
+
+  // Me comp
+  #me-cont {
+    padding: 30px;
+
+    #me {
+      .title {
+
+        .heading {
+          font-size: 25px;
+        }
+      }
+
+      .desc {
+        font-size: 15px;
+        margin: 40px 50px 40px 50px;
+      }
+
+      #icons {
+
+        #icon-cont {
+
+          i {
+            font-size: 1.5rem;
+          }
+
+          p {
+            font-size: 9px;
+          }
+        }
+      }
+    }
+  }
+
+  // Projects comp
+  #projects-cont {
+    padding: 30px 0px 40px 0px;
+
+    #projects {
+
+      .heading {
+        font-size: 25px;
+      }
+
+      #tv-cont {
+        margin-top: 40px;
+      }
+
+      .proj-cont {
+        @include flex(column, flex-start, center);
+        width: 100%;
+        margin: 10px 0 40px 0;
+
+        .info-cont {
+          @include flex(column, flex-start, center);
+          width: 85%;
+          left: 0%;
+          padding: 0 10px 20px 10px;
+
+          .title-cont {
+            @include flex(row, flex-start, center);
+
+            .title {
+              font-size: 20px;
+              text-align: center;
+            }
+
+            svg {
+              width: 22px;
+              height: 22px;
+            }
+          }
+
+          .desc {
+            font-size: 14px;
+            text-align: center;
+          }
+        }
+
+        img {
+          width: 95%;
+          position: relative;
+          left: 0%;
+        }
+      }
+    }
+  }
+
+  // Contact comp
+  #contact-cont {
+    padding: 40px 20px 100px 20px;
+
+    #contact {
+
+      .heading {
+        font-size: 25px;
+      }
+
+      .desc {
+        font-size: 17px;
+      }
+
+      #contact-form {
+        width: 85%;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+
+  // header comp
+  #header{
+
+    #header-link-collect {
+      font-size: 17px;
+
+      div {
+        margin: 0 35px 0 35px;
+      }
+    }
+  }
+
+  // intro comp
+  #intro {
+
+    #intro-desc {
+      top: 125px;
+      left: 125px;
+
+      #name {
+        font-size: 37px;
+
+        svg {
+          width: 300px;
+          height: auto;
+        }
+      }
+
+      #role {
+        font-size: 37px;
+      }
+    }
+  }
+
+  // Me comp
+  #me-cont {
+    padding: 35px;
+
+    #me {
+      .title {
+
+        .heading {
+          font-size: 30px;
+        }
+      }
+
+      .desc {
+        font-size: 16px;
+        margin: 40px 70px 40px 70px;
+      }
+
+      #icons {
+
+        #icon-cont {
+
+          i {
+            font-size: 2rem;
+          }
+
+          p {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  // Projects comp
+  #projects-cont {
+    padding: 35px 0px 0px 0px;
+
+    #projects {
+
+      .heading {
+        font-size: 30px;
+      }
+
+      #tv2-cont {
+        min-height: 40vw;
+        margin-top: 100px;
+      }
+
+      #tv-cont {
+        min-height: 35vw;
+        margin-top: 100px;
+      }
+
+      #got-cont {
+        min-height: 40vw;
+      }
+
+      .proj-cont {
+        @include flex(row, flex-start, flex-start);
+        width: 100%;
+        margin: 40px 0px 0px 0;
+
+        .info-cont {
+          @include flex(column, flex-start, flex-start);
+          width: 45%;
+          left: 0%;
+          padding: 0 20px 0px 40px;
+
+          .title-cont {
+            @include flex(row, flex-start, center);
+
+            .title {
+              font-size: 25px;
+              text-align: left;
+            }
+
+            svg {
+              width: 25px;
+              height: 25px;
+            }
+          }
+
+          .desc {
+            font-size: 14px;
+            text-align: left;
+          }
+        }
+
+        img {
+          width: 80%;
+          position: absolute;
+          left: 50%;
+        }
+      }
+    }
+  }
+
+  // Contact comp
+  #contact-cont {
+    padding: 40px 30px 100px 30px;
+
+    #contact {
+
+      .heading {
+        font-size: 30px;
+      }
+
+      .desc {
+        font-size: 18px;
+      }
+
+      #contact-form {
+        width: 70%;
+      }
+    }
+  }
+}
+
+@media (min-width: 1000px) {
+
+  // header comp
+  #header{
+
+    #header-link-collect {
+      font-size: 20px;
+
+      div {
+        margin: 0 40px 0 40px;
+      }
+    }
+  }
+
+  // intro comp
+  #intro {
+
+    #intro-desc {
+      top: 150px;
+      left: 200px;
+
+      #name {
+        font-size: 40px;
+
+        svg {
+          width: 320px;
+          height: auto;
+        }
+      }
+
+      #role {
+        font-size: 40px;
+      }
+    }
+  }
+
+  // Me comp
+  #me-cont {
+    padding: 40px;
+
+    #me {
+      .title {
+
+        .heading {
+          font-size: 35px;
+        }
+      }
+
+      .desc {
+        font-size: 18px;
+        margin: 40px 100px 40px 100px;
+      }
+
+      #icons {
+
+        #icon-cont {
+
+          i {
+            font-size: 2.5rem;
+          }
+
+          p {
+            font-size: 11px;
+          }
+        }
+      }
+    }
+  }
+
+  // Projects comp
+  #projects-cont {
+    padding: 40px 0px 0px 0px;
+
+    #projects {
+
+      .heading {
+        font-size: 35px;
+      }
+
+      #tv2-cont {
+        margin-top: 100px;
+        min-height: 35vw;
+      }
+
+      #tv-cont {
+        margin-top: 100px;
+        min-height: 35vw;
+      }
+
+      #got-cont {
+        min-height: 40vw;
+      }
+
+      .proj-cont {
+        @include flex(row, flex-start, flex-start);
+        width: 100%;
+        margin: 40px 0px 0px 0;
+
+        .info-cont {
+          @include flex(column, flex-start, flex-start);
+          width: 45%;
+          left: 0%;
+          padding: 0 20px 0px 40px;
+
+          .title-cont {
+            @include flex(row, flex-start, center);
+
+            .title {
+              font-size: 30px;
+              text-align: left;
+            }
+
+            svg {
+              width: 28px;
+              height: 28px;
+            }
+          }
+
+          .desc {
+            font-size: 19px;
+            text-align: left;
+          }
+        }
+
+        img {
+          width: 80%;
+          position: absolute;
+          left: 50%;
+        }
+      }
+    }
+  }
+
+  // Contact comp
+  #contact-cont {
+    padding: 40px 40px 100px 40px;
+
+    #contact {
+
+      .heading {
+        font-size: 35px;
+      }
+
+      .desc {
+        font-size: 19px;
+      }
+
+      #contact-form {
+        width: 60%;
+      }
+    }
+  }
+}
+
+@media (min-width: 1500px) {
+
+  // header comp
+  #header{
+
+    #header-link-collect {
+      font-size: 30px;
+
+      div {
+        margin: 0 40px 0 40px;
+      }
+    }
+  }
+
+  // intro comp
+  #intro {
+
+    #intro-desc {
+      top: 200px;
+      left: 250px;
+
+      #name {
+        font-size: 40px;
+
+        svg {
+          width: 320px;
+          height: auto;
+        }
+      }
+
+      #role {
+        font-size: 40px;
+      }
+    }
+  }
+
+  // Me comp
+  #me-cont {
+    padding: 40px;
+
+    #me {
+      .title {
+
+        .heading {
+          font-size: 40px;
+        }
+      }
+
+      .desc {
+        font-size: 25px;
+        margin: 40px 100px 40px 100px;
+        max-width: 1000px;
+      }
+
+      #icons {
+
+        #icon-cont {
+
+          i {
+            font-size: 4rem;
+          }
+
+          p {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+
+  // Projects comp
+  #projects-cont {
+    padding: 40px 0px 0px 0px;
+
+    #projects {
+
+      .heading {
+        font-size: 40px;
+      }
+
+      #tv2-cont {
+        margin-top: 100px;
+        min-height: 35vw;
+      }
+
+      #got-cont {
+        min-height: 40vw;
+      }
+
+      .proj-cont {
+        @include flex(row, flex-start, flex-start);
+        width: 100%;
+        margin: 40px 0px 0px 0;
+
+        .info-cont {
+          @include flex(column, flex-start, flex-start);
+          width: 45%;
+          left: 0%;
+          padding: 0 20px 0px 40px;
+
+          .title-cont {
+            @include flex(row, flex-start, center);
+
+            .title {
+              font-size: 35px;
+              text-align: left;
+            }
+
+            svg {
+              width: 35px;
+              height: 35px;
+            }
+          }
+
+          .desc {
+            font-size: 25px;
+            text-align: left;
+          }
+        }
+
+        img {
+          width: 80%;
+          position: absolute;
+          left: 50%;
+        }
+      }
+    }
+  }
+
+  // Contact comp
+  #contact-cont {
+    padding: 40px 40px 100px 40px;
+
+    #contact {
+
+      .heading {
+        font-size: 40px;
+      }
+
+      .desc {
+        font-size: 25px;
+      }
+
+      #contact-form {
+        width: 60%;
+
+        .input-field {
+          font-size: 25px;
+        }
+
+        #name {
+          height: 70px;
+        }
+
+        #email {
+          height: 70px;
+        }
+
+        #message {
+          height: 225px;
+        }
+
+        #form-button {
+          font-size: 25px;
+        }
+      }
+    }
+  }
+}
